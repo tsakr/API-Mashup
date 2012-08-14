@@ -33,23 +33,5 @@
 	<camelContext id="UCB-REST-CONTEXT" trace="true" xmlns="http://camel.apache.org/schema/spring">
 		<package>edu.ucb.project.route</package>
 		<jmxAgent id="agent" disabled="true" />
-		
-<!-- 		<route> -->
-<!-- 			<from uri="cxfrs://bean://rsServer"/> -->
-<!-- 			<from uri="file:src/data?noop=true" /> -->
-<!-- 			<to uri="activemq:ucb.project.data" /> -->
-<!-- 		</route> -->
-<!-- 		<route> -->
-<!-- 			<from uri="activemq:ucb.project.data" /> -->
-<!-- 			<choice> -->
-<!-- 				<when> -->
-<!-- 					<xpath>/person/city = 'London'</xpath> -->
-<!-- 					<to uri="file:target/messages/uk" /> -->
-<!-- 				</when> -->
-<!-- 				<otherwise> -->
-<!-- 					<to uri="file:target/messages/others" /> -->
-<!-- 				</otherwise> -->
-<!-- 			</choice> -->
-<!-- 		</route> -->
 	</camelContext>
 </beans>
