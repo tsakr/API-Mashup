@@ -1,10 +1,10 @@
 ----------------------------------------------------------------
-Mon Aug 06 10:48:30 PDT 2012:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.2.2 - (1181258): instance a816c00e-0138-fd0d-6894-0000030d5080 
-on database directory /Users/tsakr/Documents/workspace-sts-2.6.0.RELEASE/UCB-Project-Audit-Service/target/derby  with class loader java.net.URLClassLoader@a26638 
+Tue Aug 14 00:03:36 PDT 2012:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.2.2 - (1181258): instance a816c00e-0139-23f1-dbab-0000031b3b78 
+on database directory /Users/tsakr/git/API-Mashup/UCB-Project-Audit-Service/target/derby  with class loader java.net.URLClassLoader@1668bd43 
 Loaded from file:/Users/tsakr/.m2/repository/org/apache/derby/derby/10.8.2.2/derby-10.8.2.2.jar
 java.vendor=Apple Inc.
 java.runtime.version=1.6.0_33-b03-424-10M3720
-user.dir=/Users/tsakr/Documents/workspace-sts-2.6.0.RELEASE/UCB-Project-Audit-Service
+user.dir=/Users/tsakr/git/API-Mashup/UCB-Project-Audit-Service
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

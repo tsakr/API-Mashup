@@ -20,7 +20,9 @@ public class CloudRoute extends RouteBuilder {
 	@Override
 	public void configure() throws Exception {
 		errorHandler(new NoErrorHandlerBuilder());
-				
+		
+		//activemq:ucb.project.api.result
+		
 		from("activemq:ucb.project.data")
 			.routeId("UCB-CLOUD-ROUTE_A")
 			.to("file:src/twitter_data?noop=true", "file:src/yahoo_data?noop=true");
@@ -28,28 +30,21 @@ public class CloudRoute extends RouteBuilder {
 		
 		/* ***************************** Twitter API *************************** */
 		from("file:src/twitter_data?delete=true&delay=30s")
-			.routeId("UCB-CLOUD-Twitter-ROUTE")
-			.setHeader("twitter", constant(true)).log("true")
+			.routeId("UCB-CLOUD-Twitter-ROUTE_A")
 			.process(new RequestProcessor())
 			.to("http4://search.twitter.com/search.atom")
 			.unmarshal().rss()
 			.process(new ResponseProcessor())
 			.setHeader("visited", constant(true)).log("true")
-			.log("retrieve")
 			.convertBodyTo(String.class)
 			.to("direct:collectorChannel");
 		
 		from("direct:collectorChannel")
-			.routeId("UCB-CLOUD-ROUTE_D")
-       		.log("results")
-       		.aggregate(header("visited"), new XMLAggregationStrategy())
+			.routeId("UCB-CLOUD-Twitter-ROUTE_B")
+//       	.convertBodyTo(String.class)
+			.aggregate(header("visited"), new XMLAggregationStrategy())
 			.completionSize(1).delay(3000)
-			.to("direct:UnmarshallSources");
-		
-		from("direct:UnmarshallSources")
-			.routeId("UCB-CLOUD-ROUTE_E")
-       		.convertBodyTo(String.class)
-       		.to("file:src/data2?noop=true").end();
+       		.to("activemq:ucb.project.api.resul").end();
 	
 	/* ************************* Yahoo API ******************************* */
 		from("file:src/yahoo_data?delete=true&delay=30s")
@@ -82,7 +77,9 @@ public class CloudRoute extends RouteBuilder {
 		from("direct:YahooWeatherCollectorChannel")
 			.routeId("UCB-CLOUD-Yahoo-Weather-ROUTE_B")
 			.convertBodyTo(String.class)
-			.to("file:src/data4?noop=true").end();
+			.aggregate(header("visited"), new XMLAggregationStrategy())
+			.completionSize(1).delay(3000)
+			.to("activemq:ucb.project.api.resul").end();
 	/* ******************************************************** */
 	}
 }
