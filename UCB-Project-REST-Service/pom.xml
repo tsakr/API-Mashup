@@ -7,7 +7,6 @@
 
 	<groupId>edu.ucb.project</groupId>
 	<artifactId>UCB-Project-REST-Service</artifactId>
-	<packaging>jar</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<name>UCB Project REST Service API</name>
@@ -29,25 +28,7 @@
 		<cxf.version>2.5.1</cxf.version>
 	</properties>
 
-	<dependencies>
-
-		<!-- Apache CXF dependencies -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.cxf</groupId> -->
-		<!-- <artifactId>cxf-bundle</artifactId> -->
-		<!-- <version>${cxf.version}</version> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.cxf</groupId> -->
-		<!-- <artifactId>cxf-rt-frontend-jaxrs</artifactId> -->
-		<!-- <version>${cxf.version}</version> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.apache.cxf</groupId> -->
-		<!-- <artifactId>cxf-rt-transports-http</artifactId> -->
-		<!-- <version>${cxf.version}</version> -->
-		<!-- </dependency> -->
-		
+	<dependencies>		
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-transports-http-jetty</artifactId>
