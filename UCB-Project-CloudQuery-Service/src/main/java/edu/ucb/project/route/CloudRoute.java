@@ -21,12 +21,9 @@ public class CloudRoute extends RouteBuilder {
 	public void configure() throws Exception {
 		errorHandler(new NoErrorHandlerBuilder());
 		
-		//activemq:ucb.project.api.result
-		
 		from("activemq:ucb.project.data")
 			.routeId("UCB-CLOUD-ROUTE_A")
 			.to("file:src/twitter_data?noop=true", "file:src/yahoo_data?noop=true");
-			//.split(simple("true"));
 		
 		/* ***************************** Twitter API *************************** */
 		from("file:src/twitter_data?delete=true&delay=30s")
@@ -37,15 +34,8 @@ public class CloudRoute extends RouteBuilder {
 			.process(new ResponseProcessor())
 			.setHeader("visited", constant(true)).log("true")
 			.convertBodyTo(String.class)
-			.to("direct:collectorChannel");
+			.to("direct:AggregationChannel");
 		
-		from("direct:collectorChannel")
-			.routeId("UCB-CLOUD-Twitter-ROUTE_B")
-//       	.convertBodyTo(String.class)
-			.aggregate(header("visited"), new XMLAggregationStrategy())
-			.completionSize(1).delay(3000)
-       		.to("activemq:ucb.project.api.resul").end();
-	
 	/* ************************* Yahoo API ******************************* */
 		from("file:src/yahoo_data?delete=true&delay=30s")
 			.routeId("UCB-CLOUD-Yahoo-Woeid-ROUTE_A")
@@ -72,14 +62,15 @@ public class CloudRoute extends RouteBuilder {
 			.unmarshal().rss()
 			.process(new YahooWeatherResponseProcessor())
 			.setHeader("visited", constant(true)).log("true")
-			.to("direct:YahooWeatherCollectorChannel");
+			.to("direct:AggregationChannel");
 		
-		from("direct:YahooWeatherCollectorChannel")
-			.routeId("UCB-CLOUD-Yahoo-Weather-ROUTE_B")
+	/* ******************************************************** */
+		from("direct:AggregationChannel")
+			.routeId("UCB-CLOUD-Aggregation-ROUTE")
 			.convertBodyTo(String.class)
 			.aggregate(header("visited"), new XMLAggregationStrategy())
 			.completionSize(1).delay(3000)
-			.to("activemq:ucb.project.api.resul").end();
-	/* ******************************************************** */
+			.to("activemq:ucb.project.api.result");
+		
 	}
 }
