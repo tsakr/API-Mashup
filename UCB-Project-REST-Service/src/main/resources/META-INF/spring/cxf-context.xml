@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://camel.apache.org/schema/cxf"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:camel="http://camel.apache.org/schema/spring"
+	xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+       http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+       http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+       http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<!-- ************************** CXF REST Service Entry************************** -->
+<!-- 	<import resource="classpath:META-INF/cxf/cxf.xml" /> -->
+	
+	<!-- create a resource bean class -->
+<!-- 	<bean id="restResource" class="edu.ucb.project.resource.RestResource" /> -->
+
+	<!-- <cxf:bus> -->
+	<!-- <cxf:features> -->
+	<!-- <cxf:logging /> -->
+	<!-- </cxf:features> -->
+	<!-- </cxf:bus> -->
+
+	<!-- Defined the real JAXRS back end service -->
+	<!-- THE ACTUAL SERVER WHICH WILL GET HIT -->
+<!-- 	<jaxrs:server id="ucbCXFResource" address="http://localhost:8989/cxf/rest"> -->
+<!-- 		<jaxrs:serviceBeans> -->
+<!-- 			<ref bean="restResource" /> -->
+<!-- 		</jaxrs:serviceBeans> -->
+<!-- 	</jaxrs:server> -->
+
+	<!-- Defined the server endpoint to create the cxf-rs consumer -->
+	<!-- LOCAL SERVER THAT NEED TO GET HIT -->
+<!-- 	<cxf:rsServer id="rsServer" address="http://localhost:8989/cxf/route" -->
+<!-- 		serviceClass="edu.ucb.project.resource.RestResource" -->
+<!-- 		loggingFeatureEnabled="true" loggingSizeLimit="20" /> -->
+
+</beans>
