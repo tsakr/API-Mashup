@@ -56,7 +56,7 @@ public class CloudRoute extends RouteBuilder {
 			.to("file:src/data3?noop=true");
 		
 		from("file:src/data3?delete=true&delay=30s")
-			.routeId("UCB-CLOUD-Yahoo-Weather-ROUTE_A")
+			.routeId("UCB-CLOUD-Yahoo-Weather-ROUTE")
 			.process(new YahooWeatherRequestProcessor())
 			.to("http4://weather.yahooapis.com/forecastrss")
 			.unmarshal().rss()
@@ -64,12 +64,11 @@ public class CloudRoute extends RouteBuilder {
 			.setHeader("visited", constant(true)).log("true")
 			.to("direct:AggregationChannel");
 		
-	/* ******************************************************** */
+	/* ************************** Result Aggregation ****************************** */
 		from("direct:AggregationChannel")
 			.routeId("UCB-CLOUD-Aggregation-ROUTE")
-			.convertBodyTo(String.class)
 			.aggregate(header("visited"), new XMLAggregationStrategy())
-			.completionSize(1).delay(3000)
+			.completionSize(2).delay(3000)
 			.to("activemq:ucb.project.api.result");
 		
 	}
